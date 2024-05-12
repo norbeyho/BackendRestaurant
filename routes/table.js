@@ -8,7 +8,7 @@ const router = express.Router();
 router.use(cors());
 
 //Agregar mesa
-router.post('tables', cors(),(req, res)=>{
+router.post('/tables', cors(),(req, res)=>{
     const table = tableSchema(req.body);
     table
         .save()

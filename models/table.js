@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 
 const tableSchema = mongoose.Schema({
-    name: {
+    tableId: {
         type: String,
         require: true
     },
-    icon: {
+    tableName: {
         type: String,
         require: true
-    }
+    },    
+    
 });
 
 module.exports = mongoose.model('Table',tableSchema);
