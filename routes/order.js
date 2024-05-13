@@ -1,23 +1,24 @@
 const express = require('express');
 const cors = require('cors');
 
-const productSchema = require('../models/product');
+const orderSchema = require('../models/order');
 
 const router = express.Router();
 
 router.use(cors());
 
-//Agregar producto
-router.post('/products', cors(),(req, res)=>{
-    const product =productSchema(req.body);
-    product
+//Agregar orden
+router.post('/orders', cors(),(req, res)=>{
+    const order = orderSchema(req.body);
+    order
         .save()
         .then((data) => res.json(data))
         .catch((error)=> res.json({message: error}))
 })
 
-router.get('/products', cors(),(req, res)=>{
-    productSchema
+//Recuperar mesas
+router.get('/orders', cors(), (req, res)=>{
+    orderSchema
         .find()
         .then((data)=> res.json(data))
         .catch((error)=> res.json({message: error}))

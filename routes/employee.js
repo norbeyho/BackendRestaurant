@@ -1,23 +1,24 @@
 const express = require('express');
 const cors = require('cors');
 
-const productSchema = require('../models/product');
+const employeeSchema = require('../models/employee');
 
 const router = express.Router();
 
 router.use(cors());
 
-//Agregar producto
-router.post('/products', cors(),(req, res)=>{
-    const product =productSchema(req.body);
-    product
+//Agregar empleado
+router.post('/employees', cors(),(req, res)=>{
+    const employee = employeeSchema(req.body);
+    employee
         .save()
         .then((data) => res.json(data))
         .catch((error)=> res.json({message: error}))
 })
 
-router.get('/products', cors(),(req, res)=>{
-    productSchema
+//Recuperar empleado
+router.get('/employees', cors(), (req, res)=>{
+    employeeSchema
         .find()
         .then((data)=> res.json(data))
         .catch((error)=> res.json({message: error}))
