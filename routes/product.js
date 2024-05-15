@@ -26,7 +26,7 @@ router.get('/products', cors(),(req, res)=>{
 router.get('/products/:categoryId', cors(), (req, res) => {
     const {categoryId} = req.params; 
     productSchema
-        .findOne({ categoryId:categoryId }) 
+        .find({ categoryId:categoryId }) 
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }))
 });
