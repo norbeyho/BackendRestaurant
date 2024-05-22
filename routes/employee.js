@@ -24,4 +24,13 @@ router.get('/employees', cors(), (req, res)=>{
         .catch((error)=> res.json({message: error}))
 })
 
+// busqueda por username
+router.get('/users/:username',cors(),(req, res)=>{
+    const { username } = req.params;
+    userSchema
+         .findById(username)
+         .then((data) => res.json(data))
+         .catch((error) =>res.json({message: error}))
+ })
+
 module.exports = router;
