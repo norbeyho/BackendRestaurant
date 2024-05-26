@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const tableSchema = mongoose.Schema({
     tableId: {
         type: String,
-        require: true
+        required: true
     },
     tableName: {
         type: String,
-        require: true
+        required: true
     },    
     estate:{
         type: String,
-        require: true
+        required: true
     }
 });
 
