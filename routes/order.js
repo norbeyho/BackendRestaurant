@@ -16,7 +16,7 @@ router.post('/orders', cors(),(req, res)=>{
         .catch((error)=> res.json({message: error}))
 })
 
-//Recuperar mesas
+//Recuperar ordenes
 router.get('/orders', cors(), (req, res)=>{
     orderSchema
         .find()

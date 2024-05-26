@@ -11,7 +11,7 @@ const orderItemSchema = new mongoose.Schema({
     },
     comment: {
         type: String,
-        required: true
+        required: false
     },
     price: { 
         type: Number, 
