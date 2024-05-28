@@ -25,20 +25,13 @@ router.get('/orders', cors(), (req, res)=>{
 });
 
 // Actualizar una orden
-router.patch('/orders/:id', cors(), async (req, res) => {
-    try {
-      const updatedOrder = await orderSchema.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true } // Retorna el documento actualizado
-      );
-      if (!updatedOrder) {
-        return res.status(404).json({ message: 'Orden no encontrada' });
-      }
-      res.json(updatedOrder);
-    } catch (error) {
-      res.status(400).json({ message: error.message });
-    }
+router.put('/orders/:id', cors(), (req, res) => {
+    const { id } = req.params;
+    const { username, date, items, totalValue, progress } = req.body;
+    orderSchema
+        .updateOne({_id:id},{$set: {username, date, items, totalValue, progress }})
+        .then((data) => res.json(data))
+        .catch((error) => res.json({message: error}))
   });
 
 module.exports = router;

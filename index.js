@@ -11,7 +11,7 @@ const categoryRoutes = require('./routes/category');
 const orderRoutes = require('./routes/order');
 const employeeRoutes = require('./routes/employee');
 const { error } = require('console');
-const order = require('./models/order');
+
 
 const app = express();
 const server = http.createServer(app);
@@ -45,7 +45,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Configuración de Socket.IO
 io.on('connection', (socket) => {
-    console.log('A user connected');
+    console.log('Cliente conectado: ');
   
     // Recepción de nuevas órdenes desde el cliente
     socket.on('newOrder', (order) => {
