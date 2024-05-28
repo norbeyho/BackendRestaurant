@@ -24,6 +24,15 @@ router.get('/orders', cors(), (req, res)=>{
         .catch((error)=> res.json({message: error}))
 });
 
+// Recuperar orden por id
+ router.get('/orders/:id', cors(), (req, res)=>{
+    const { id } = req.params;
+    orderSchema
+        .findById(id)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({message: error}))
+ });
+
 // Actualizar una orden
 router.put('/orders/:id', cors(), (req, res) => {
     const { id } = req.params;
