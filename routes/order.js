@@ -24,20 +24,26 @@ router.get('/orders', cors(), (req, res)=>{
         .catch((error)=> res.json({message: error}))
 });
 
-// Recuperar orden por mesa y estado
-router.get('/orders', async (req, res) => {
+router.get('/find-order', async (req, res) => {
     const { tableName, progress } = req.query;
-
+  
+    // Crear un objeto de filtro dinámico
+    let filter = { tableName };
+    if (progress) {
+      filter.progress = progress;
+    }  
     try {
-        const order = await orderSchema.findOne({ tableName, progress });
-        if (!order) {
-            return res.status(404).json({ message: 'Order not found' });
-        }
-        res.json(order);
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+      const pedidos = await orderSchema.find(filter);
+      if (pedidos.length === 0) {
+        return res.status(404).json({ msg: 'No se encontraron pedidos para esta mesa con el estado especificado' });
+      }
+      res.json(pedidos);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
     }
-});
+  });
+  
 
 // Actualizar una orden
 router.put('/orders/:id', cors(), (req, res) => {
