@@ -32,13 +32,23 @@ router.get('/employees/:id',cors(),(req, res)=>{
          .catch((error) =>res.json({message: error}))
  })
 //Buscar por userneme
-router.get('/employees/byusername/:username',cors(),async(req, res)=>{
-    const { username } = req.params;
-    await employeesSchema
-          .findOne({username:username})
-          .then(data => res.json(data))
-          .catch(error => res.json(error))  
-    });
+router.post("/employees/byusername", cors(), async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await employeesSchema.findOne({ username });
+    if (user) {
+      res.json({
+        username: user.username,
+        role: user.role,
+      });
+    } else {
+      res.status(401).json({ error: "Usuario o contraseña incorrectos" });
+    }
+  } catch (error) {
+    console.error("Error al autenticar:", error);
+    res.status(500).json({ error: "Error al iniciar sesión" });
+  }
+});
 
  // Actualizar user por id
 router.put('/employees/:id',cors(),(req, res)=>{
