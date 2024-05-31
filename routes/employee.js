@@ -35,7 +35,7 @@ router.get('/employees/:id',cors(),(req, res)=>{
 router.post("/employees/byusername", cors(), async (req, res) => {
   const { username, password } = req.body;
   try {
-    const user = await employeesSchema.findOne({ username });
+    const user = await employeesSchema.findOne({ username, password });
     if (user) {
       res.json({
         username: user.username,
