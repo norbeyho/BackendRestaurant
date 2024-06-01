@@ -9,7 +9,7 @@ const tableRoutes = require('./routes/table');
 const productRoutes = require('./routes/product');
 const categoryRoutes = require('./routes/category');
 const orderRoutes = require('./routes/order');
-const employeeRoutes = require('./routes/employee');
+const employeesRoutes = require('./routes/employees');
 const { error } = require('console');
 
 
@@ -32,7 +32,7 @@ app.use('/api', tableRoutes);
 app.use('/api', productRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', orderRoutes);
-app.use('/api', employeeRoutes);
+app.use('/api', employeesRoutes);
 
 
 app.get('/',(req, res)=>{
