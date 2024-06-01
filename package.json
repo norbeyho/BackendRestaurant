@@ -17,6 +17,8 @@
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.2"
+    "bufferutil": "^4.0.8",
+    "nodemon": "^3.1.2",
+    "utf-8-validate": "^5.0.10"
   }
 }
