@@ -66,6 +66,6 @@ io.on('connection', (socket) => {
     });
   });  
 
-app.listen(port, ()=>{
+server.listen(port, ()=>{
     console.log(`Servidor iniciado en http://localhost:${port}`);
 });
