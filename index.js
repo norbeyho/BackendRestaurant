@@ -1,6 +1,6 @@
 const express = require('express');
-const { createServer } = require("http");
-const { Server } = require("socket.io");
+const http = require('http');
+const socketIo = require('socket.io')
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -9,13 +9,18 @@ const tableRoutes = require('./routes/table');
 const productRoutes = require('./routes/product');
 const categoryRoutes = require('./routes/category');
 const orderRoutes = require('./routes/order');
-const employeesRoutes = require('./routes/employees');
+const employeeRoutes = require('./routes/employees');
 const { error } = require('console');
 
- const app = express();
- const httpServer = createServer(app);
- const io = new Server(httpServer);
 
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
 
 const port = process.env.PORT || 3000
 
@@ -27,7 +32,7 @@ app.use('/api', tableRoutes);
 app.use('/api', productRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', orderRoutes);
-app.use('/api', employeesRoutes);
+app.use('/api', employeeRoutes);
 
 
 app.get('/',(req, res)=>{
