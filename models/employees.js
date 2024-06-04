@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const employeeSchema = mongoose.Schema({
+const employeesSchema = mongoose.Schema({
     username: {
         type: String,
         required: true
@@ -19,8 +19,8 @@ const employeeSchema = mongoose.Schema({
     },
     role: {
         type: String,
-        required: true
+        required: true,
     }
 })
 
-module.exports = mongoose.model('Employee', employeeSchema)
+module.exports = mongoose.model('Employees', employeesSchema);

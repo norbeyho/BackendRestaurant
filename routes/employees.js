@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors')
 // importar el esquema de models
-const employeesSchema = require('../models/employee');
+const employeesSchema = require('../models/employees');
 
 const router = express.Router();
 // Middleware
@@ -31,6 +31,16 @@ router.get('/employees/:id',cors(),(req, res)=>{
          .then((data) => res.json(data))
          .catch((error) =>res.json({message: error}))
  })
+
+ //Buscar por email
+router.get('/employees/byemail/:email',cors(),async(req, res)=>{
+  const { email } = req.params;
+  await employeesSchema
+        .findOne({email:email})
+        .then(data => res.json(data))
+        .catch(error => res.json(error))  
+  });
+  
 //Buscar por userneme
 router.post("/employees/byusername", cors(), async (req, res) => {
   const { username, password } = req.body;
