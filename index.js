@@ -61,10 +61,10 @@ io.on('connection', (socket) => {
     })
   
     // Recepción de notificación de estado desde la cocina
-    socket.on('orderStatusUpdate', (statusUpdate) => {
-      console.log('Status update received:', statusUpdate);
+    socket.on('updateOrder', (updatedOrder) => {
+      console.log('Status update received:', updatedOrder);
       // Emitir la actualización de estado a todos los clientes
-      io.emit('orderStatusUpdate', statusUpdate);
+      io.emit('updateOrder', updatedOrder);
     });
   
     socket.on('disconnect', () => {
