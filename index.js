@@ -48,11 +48,17 @@ io.on('connection', (socket) => {
     console.log('Cliente conectado: ');
   
     // Recepción de nuevas órdenes desde el cliente
-    socket.on('newOrder', (order) => {
-      console.log('Order received:', order);
+    socket.on('newOrder', (orderData) => {
+      console.log('Orden recibida en el back:', JSON.stringify(orderData));
       
-      io.emit('orderStatusUpdate', { orderId: order.id, status: 'En proceso' });
+      io.emit('newOrder', orderData);
     });
+
+    socket.on('products', (product) => {
+      console.log('Producto agregado', product)
+
+      io.emit('products', product)
+    })
   
     // Recepción de notificación de estado desde la cocina
     socket.on('orderStatusUpdate', (statusUpdate) => {
