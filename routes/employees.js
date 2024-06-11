@@ -41,7 +41,7 @@ router.get('/employees/byemail/:email',cors(),async(req, res)=>{
         .catch(error => res.json(error))  
   });
   
-//Buscar por userneme
+//Buscar por username
 router.post("/employees/byusername", cors(), async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -59,6 +59,15 @@ router.post("/employees/byusername", cors(), async (req, res) => {
     res.status(500).json({ error: "Error al iniciar sesión" });
   }
 });
+
+//Buscar por userneme
+router.get('/employees/byusername/:username',cors(),async(req, res)=>{
+  const { username } = req.params;
+  await employeesSchema
+        .findOne({username:username})
+        .then(data => res.json(data))
+        .catch(error => res.json(error))  
+    });
 
  // Actualizar user por id
 router.put('/employees/:id',cors(),(req, res)=>{

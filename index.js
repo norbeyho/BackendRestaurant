@@ -79,6 +79,13 @@ io.on('connection', (socket) => {
       // Emitir el evento a todos los clientes conectados
       io.emit('update_order', {table, order});
   });      
+
+      // Ejemplo de evento: recibir una nueva orden
+      socket.on("new-order", (order) => {
+        console.log("Nueva orden recibida:", order);
+        // Emitir el evento a todos los clientes conectados
+        io.emit("new-order", order);
+      });    
       
     socket.on('disconnect', () => {
       console.log('A user disconnected');
