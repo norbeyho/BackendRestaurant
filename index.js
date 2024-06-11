@@ -43,10 +43,24 @@ mongoose.connect(process.env.MONGODB_URI)
     .then(()=>console.log("Conectado a la base de datos Mongo"))
     .catch(()=> console.error("Error de conexion a la base de datos",error))
 
+const orders = {}    
 // Configuración de Socket.IO
 io.on('connection', (socket) => {
     console.log('Cliente conectado: ');
   
+    //Mesa desocupada
+    socket.on('clear_table', (table) => {
+      // Emitir el evento a todos los clientes
+      io.emit('table_free', table);
+      console.log(`Table ${table} libre`);
+    });
+
+    //Mesa ocupada
+    socket.on('use_table', ({ table, color }) => {
+      // Emitir el evento a todos los clientes
+      io.emit('table_busy', {table, color});
+      console.log(`Color de la mesa ${table} cambiado a ${color}`);
+    });
     // Recepción de nuevas órdenes desde el cliente
     socket.on('newOrder', (orderData) => {
       console.log('Orden recibida en el back:', JSON.stringify(orderData));
@@ -54,19 +68,14 @@ io.on('connection', (socket) => {
       io.emit('newOrder', orderData);
     });
 
-    socket.on('products', (product) => {
-      console.log('Producto agregado', product)
+    socket.on('update_order', ({table, order}) => {
+      // Actualizar la orden existente
+      //orders[orderData.table] = orderData;      
 
-      io.emit('products', product)
-    })
-  
-    // Recepción de notificación de estado desde la cocina
-    socket.on('updateOrder', (updatedOrder) => {
-      console.log('Status update received:', updatedOrder);
-      // Emitir la actualización de estado a todos los clientes
-      io.emit('updateOrder', updatedOrder);
-    });
-  
+      // Emitir el evento a todos los clientes conectados
+      io.emit('update_order', {table, order});
+  });      
+      
     socket.on('disconnect', () => {
       console.log('A user disconnected');
     });
