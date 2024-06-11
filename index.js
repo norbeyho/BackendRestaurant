@@ -68,10 +68,14 @@ io.on('connection', (socket) => {
       io.emit('newOrder', orderData);
     });
 
-    socket.on('update_order', ({table, order}) => {
-      // Actualizar la orden existente
-      //orders[orderData.table] = orderData;      
+    //Cancelar una orden
+    socket.on('cancel_order', (tableName) => {
+      
+      io.emit('cancel_order', tableName)
+    })
 
+    socket.on('update_order', ({table, order}) => {
+      
       // Emitir el evento a todos los clientes conectados
       io.emit('update_order', {table, order});
   });      
