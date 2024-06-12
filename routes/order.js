@@ -9,8 +9,8 @@ router.use(cors());
 
 //Agregar orden
 router.post('/orders', cors(),(req, res)=>{
-    const orderData = orderSchema(req.body);
-    orderData
+    const order = orderSchema(req.body);
+    order
         .save()
         .then((data) => res.json(data))
         .catch((error)=> res.json({message: error}))
